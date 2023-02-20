@@ -1,11 +1,11 @@
 Package: PlatFormDesign
-Title: This package simulates the multi-arm multi-stage or platform trial with bayesian adaptive approach via stan.
+Title: This package simulates the multi-arm multi-stage or platform trial with Bayesian adaptive approach via stan.
 Version: 1.0.0.9000
 Authors@R: 
     person("ZIYAN", "WANG", , "zw7g20@soton.ac.uk", role = c("aut", "cre"))
 Maintainer: ZIYAN WANG <zw7g20@soton.ac.uk>
-Description: This package simulates the multi-arm multi-stage or platform trial with bayesian approach using the 'rstan' package, which provides the R interface for to the stan. 
-    The package uses Thall's and Trippa's randomisation approach for bayesian adaptive randomisation. 
+Description: This package simulates the multi-arm multi-stage or platform trial with Bayesian approach using the 'rstan' package, which provides the R interface for to the stan. 
+    The package uses Thall's and Trippa's randomisation approach for Bayesian adaptive randomisation. 
     In addition, the time trend problem of platform trial can be studied in this package.
     There is a demo for multi-arm multi-stage trial for two different null scenario in this package.
 Encoding: UTF-8
