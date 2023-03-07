@@ -6,22 +6,29 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of PlatFormDesignTimeTrend is to simulates the multi-arm multi-stage or
-platform trial with Bayesian approach using the ‘rstan’ package, which
-provides the R interface for to the stan. The package uses Thall’s and
-Trippa’s randomisation approach for Bayesian adaptive randomisation. In
-addition, the time trend problem of platform trial can be studied in
-this package. There is a demo for multi-arm multi-stage trial for two
-different null scenario in this package.
+The goal of PlatFormDesignTimeTrend is to simulates the multi-arm
+multi-stage or platform trial with Bayesian approach using the ‘rstan’
+package, which provides the R interface for to the stan. The package
+uses Thall’s and Trippa’s randomisation approach for Bayesian adaptive
+randomisation. In addition, the time trend problem of platform trial can
+be studied in this package. There is a demo for multi-arm multi-stage
+trial for two different null scenario in this package.
 
 ## Installation
 
-You can install the development version of PlatFormDesignTimeTrend like so:
+You can install the ‘PlatFormDesignTimeTrend’ package 1.0.0 like so:
 
 ``` r
 # install.packages("PlatFormDesignTimeTrend")
-# install_github("ZXW834/PlatFormDesignTime)
+devtools::install_github("ZXW834/PlatFormDesignTime", build_vignettes = TRUE)
 ```
+
+## Tutorials
+
+-   ‘MAMS-CutoffScreening-tutorial’ is a tutorial document of how to do
+    cutoff screening under Bayesian MAMS trial
+-   ‘MAMS-trial-simulation-tutorial’ is a tutorial document of how to do
+    Bayesian MAMS trial simulation with or without time trend
 
 ## Example
 
@@ -32,7 +39,7 @@ library(PlatFormDesignTimeTrend)
 #> Loading required package: rstan
 #> Loading required package: StanHeaders
 #> Loading required package: ggplot2
-#> rstan (Version 2.21.2, GitRev: 2e1f913d3ca3)
+#> rstan (Version 2.21.8, GitRev: 2e1f913d3ca3)
 #> For execution on a local, multicore CPU with excess RAM we recommend calling
 #> options(mc.cores = parallel::detectCores()).
 #> To avoid recompilation of unchanged Stan programs, we recommend calling
@@ -82,95 +89,96 @@ trial.fun = simulatetrial,
    )
  ),
  cl = 2)
+#> [1] "Start trial information initialisation"
 #> $result
-#> $result$`0404stage5`
-#> $result$`0404stage5`[[1]]
+#> $result$`0404TimeTrend00stage5main`
+#> $result$`0404TimeTrend00stage5main`[[1]]
 #>     PP1C nC yC nE1 yE1 H1^1tpIE Intercept Trt1_Mean Trt1_Var
-#> 1 0.9168 16  2  14   5        0    -1.896     1.238    0.824
-#> 2 0.8184 22  6  38  15        0    -0.978     0.542    0.344
-#> 3 0.6788 30 10  60  23        0    -0.712     0.235    0.232
-#> 4 0.6816 39 14  81  33        0    -0.585     0.207    0.166
-#> 5 0.5328 49 19 101  40        0    -0.461     0.032    0.121
+#> 1 0.3664 15  6  15   5        0    -0.438    -0.267    0.597
+#> 2 0.1756 34 13  26   7        0    -0.498    -0.506    0.322
+#> 3 0.5488 56 19  34  12        0    -0.671     0.057    0.201
+#> 4 0.5908 70 25  50  19        0    -0.591     0.091    0.154
+#> 5 0.7564 81 27  69  27        0    -0.692     0.249    0.125
 #> 
-#> $result$`0404stage5`[[2]]
+#> $result$`0404TimeTrend00stage5main`[[2]]
 #>     PP1C nC yC nE1 yE1 H1^1tpIE Intercept Trt1_Mean Trt1_Var
-#> 1 0.3532 15  6  15   5        0    -0.441    -0.276    0.547
-#> 2 0.4372 35 12  25   8        0    -0.669    -0.092    0.298
-#> 3 0.1596 53 18  37   9        0    -0.674    -0.469    0.223
-#> 4 0.4020 76 24  44  13        0    -0.781    -0.099    0.182
-#> 5 0.2292 93 32  57  16        0    -0.658    -0.285    0.137
+#> 1 0.3460 15  6  15   5        0    -0.429    -0.272    0.533
+#> 2 0.1068 35 12  25   5        0    -0.673    -0.744    0.372
+#> 3 0.5788 57 16  33  10        0    -0.952     0.089    0.236
+#> 4 0.8748 69 20  51  20        0    -0.889     0.435    0.146
+#> 5 0.8664 76 22  74  28        0    -0.909     0.403    0.125
 #> 
-#> $result$`0404stage5`[[3]]
+#> $result$`0404TimeTrend00stage5main`[[3]]
 #>     PP1C nC yC nE1 yE1 H1^1tpIE Intercept Trt1_Mean Trt1_Var
-#> 1 0.6388 14  6  16   8        0    -0.268     0.265    0.558
-#> 2 0.8232 25  9  35  17        0    -0.574     0.505    0.288
-#> 3 0.6456 32 12  58  24        0    -0.526     0.170    0.200
-#> 4 0.8620 43 15  77  35        0    -0.616     0.431    0.152
-#> 5 0.8764 50 18 100  46        0    -0.571     0.409    0.122
+#> 1 0.2388 15  7  15   5        0    -0.150    -0.552    0.582
+#> 2 0.4036 37 14  23   8        0    -0.502    -0.150    0.308
+#> 3 0.5328 55 20  35  13        0    -0.568     0.041    0.193
+#> 4 0.3984 69 26  51  18        0    -0.501    -0.110    0.150
+#> 5 0.1424 87 35  63  20        0    -0.404    -0.373    0.124
 #> 
-#> $result$`0404stage5`[[4]]
+#> $result$`0404TimeTrend00stage5main`[[4]]
 #>     PP1C nC yC nE1 yE1 H1^1tpIE Intercept Trt1_Mean Trt1_Var
-#> 1 0.6484 15  5  15   6        0    -0.700     0.276    0.551
-#> 2 0.8196 25  9  35  17        0    -0.564     0.496    0.282
-#> 3 0.7648 32 10  58  22        0    -0.826     0.327    0.205
-#> 4 0.6504 39 13  81  30        0    -0.695     0.157    0.182
-#> 5 0.5664 50 17 100  35        0    -0.675     0.052    0.133
+#> 1 0.6656 15  5  15   6        0    -0.735     0.306    0.603
+#> 2 0.9672 26  8  34  19        0    -0.803     1.029    0.310
+#> 3 0.8444 34 14  56  29        0    -0.357     0.437    0.194
+#> 4 0.7612 42 16  78  35        0    -0.499     0.285    0.158
+#> 5 0.4364 50 21 100  41        0    -0.322    -0.047    0.123
 #> 
-#> $result$`0404stage5`[[5]]
+#> $result$`0404TimeTrend00stage5main`[[5]]
 #>     PP1C nC yC nE1 yE1 H1^1tpIE Intercept Trt1_Mean Trt1_Var
-#> 1 0.8416 14  7  16  11        0     0.024     0.757    0.567
-#> 2 0.6044 21 10  39  20        0    -0.098     0.150    0.288
-#> 3 0.3540 33 16  57  25        0    -0.076    -0.169    0.196
-#> 4 0.4164 53 24  67  29        0    -0.194    -0.079    0.130
-#> 5 0.6484 71 30  79  36        0    -0.310     0.126    0.108
+#> 1 0.5612 14  4  16   5        0    -0.943     0.121    0.574
+#> 2 0.3144 27 10  33  10        0    -0.561    -0.287    0.311
+#> 3 0.4148 48 17  42  14        0    -0.607    -0.086    0.198
+#> 4 0.7604 67 22  53  21        0    -0.714     0.283    0.143
+#> 5 0.3872 74 25  76  24        0    -0.669    -0.104    0.121
 #> 
-#> $result$`0404stage5`[[6]]
+#> $result$`0404TimeTrend00stage5main`[[6]]
+#>     PP1C nC yC nE1 yE1 H1^1tpIE Intercept Trt1_Mean Trt1_Var
+#> 1 0.7796 15  4  15   6        0    -1.027     0.576    0.568
+#> 2 0.8684 23  5  37  13        0    -1.309     0.675    0.366
+#> 3 0.8464 31  8  59  21        0    -1.070     0.471    0.224
+#> 4 0.9684 39 11  81  36        0    -0.946     0.724    0.165
+#> 5 0.9632 47 15 103  49        0    -0.762     0.659    0.138
+#> 
+#> $result$`0404TimeTrend00stage5main`[[7]]
+#>     PP1C nC yC nE1 yE1 H1^1tpIE Intercept Trt1_Mean Trt1_Var
+#> 1 0.8716 15  4  15   7        0    -0.997     0.838    0.551
+#> 2 0.4680 23  9  37  14        0    -0.446    -0.046    0.282
+#> 3 0.3216 39 17  51  20        0    -0.258    -0.181    0.170
+#> 4 0.7140 60 21  60  24        0    -0.623     0.215    0.137
+#> 5 0.3144 68 25  82  27        0    -0.547    -0.162    0.119
+#> 
+#> $result$`0404TimeTrend00stage5main`[[8]]
+#>     PP1C nC yC nE1 yE1 H1^1tpIE Intercept Trt1_Mean Trt1_Var
+#> 1 0.6688 14  5  16   7        0    -0.584     0.314    0.513
+#> 2 0.7976 23  8  37  17        0    -0.627     0.466    0.303
+#> 3 0.7216 30 11  60  26        0    -0.549     0.279    0.200
+#> 4 0.6460 38 14  82  33        0    -0.547     0.143    0.148
+#> 5 0.8324 49 17 101  43        0    -0.638     0.339    0.127
+#> 
+#> $result$`0404TimeTrend00stage5main`[[9]]
 #>     PP1C  nC yC nE1 yE1 H1^1tpIE Intercept Trt1_Mean Trt1_Var
-#> 1 0.3540  15  7  15   6        0    -0.145    -0.263    0.528
-#> 2 0.1916  35 15  25   8        0    -0.291    -0.466    0.299
-#> 3 0.0860  57 27  33  11        0    -0.110    -0.588    0.207
-#> 4 0.3512  80 31  40  14        0    -0.471    -0.157    0.167
-#> 5 0.5496 101 40  49  20        0    -0.428     0.048    0.125
+#> 1 0.0632  15  8  15   4        0     0.095    -1.108    0.546
+#> 2 0.0624  37 19  23   7        0     0.046    -0.871    0.326
+#> 3 0.0468  60 31  30  10        0     0.067    -0.776    0.231
+#> 4 0.0180  82 43  38  12        0     0.091    -0.877    0.187
+#> 5 0.0904 104 48  46  16        0    -0.156    -0.480    0.137
 #> 
-#> $result$`0404stage5`[[7]]
+#> $result$`0404TimeTrend00stage5main`[[10]]
 #>     PP1C  nC yC nE1 yE1 H1^1tpIE Intercept Trt1_Mean Trt1_Var
-#> 1 0.4232  14  4  16   4        0    -0.989    -0.149    0.641
-#> 2 0.0740  33 13  27   6        0    -0.449    -0.824    0.323
-#> 3 0.1756  56 20  34   9        0    -0.585    -0.441    0.224
-#> 4 0.1144  79 32  41  12        0    -0.390    -0.495    0.170
-#> 5 0.1020 101 39  49  14        0    -0.462    -0.464    0.139
-#> 
-#> $result$`0404stage5`[[8]]
-#>     PP1C nC yC nE1 yE1 H1^1tpIE Intercept Trt1_Mean Trt1_Var
-#> 1 0.8804 15  8  15  11        0     0.153     0.839    0.559
-#> 2 0.6492 23 10  37  18        0    -0.268     0.203    0.280
-#> 3 0.4560 35 15  55  23        0    -0.285    -0.037    0.198
-#> 4 0.5476 51 20  69  28        0    -0.438     0.045    0.144
-#> 5 0.3532 65 28  85  34        0    -0.286    -0.123    0.108
-#> 
-#> $result$`0404stage5`[[9]]
-#>     PP1C  nC yC nE1 yE1 H1^1tpIE Intercept Trt1_Mean Trt1_Var
-#> 1 0.1308  15  7  15   4        0    -0.180    -0.840    0.565
-#> 2 0.0356  37 20  23   7        0     0.153    -0.985    0.303
-#> 3 0.2460  59 29  31  13        0    -0.034    -0.308    0.205
-#> 4 0.3924  82 39  38  17        0    -0.096    -0.110    0.154
-#> 5 0.1352 100 47  50  19        0    -0.118    -0.380    0.119
-#> 
-#> $result$`0404stage5`[[10]]
-#>     PP1C nC yC nE1 yE1 H1^1tpIE Intercept Trt1_Mean Trt1_Var
-#> 1 0.4832 15  5  15   5        0    -0.713    -0.005    0.542
-#> 2 0.3972 30 12  30  11        0    -0.419    -0.148    0.283
-#> 3 0.2116 48 20  42  14        0    -0.334    -0.360    0.184
-#> 4 0.0956 70 29  50  15        0    -0.349    -0.510    0.155
-#> 5 0.0980 93 37  57  17        0    -0.416    -0.454    0.129
+#> 1 0.1352  15  7  15   4        0    -0.164    -0.851    0.573
+#> 2 0.1020  37 19  23   8        0     0.054    -0.668    0.277
+#> 3 0.1692  59 27  31  11        0    -0.171    -0.444    0.208
+#> 4 0.1900  82 37  38  14        0    -0.196    -0.351    0.165
+#> 5 0.1388 105 52  45  18        0    -0.023    -0.382    0.121
 #> 
 #> 
 #> 
 #> $OPC
-#>            Type.I.Error.or.Power    Bias      rMSE N.per.arm.1 N.per.arm.2
-#> 0404stage5                     0 -0.1039 0.3056068        77.3        72.7
-#>            Survive.per.arm.1 Survive.per.arm.2   N
-#> 0404stage5              30.7              27.7 150
+#>                           Type.I.Error.or.Power   Bias      rMSE N.per.arm.1
+#> 0404TimeTrend00stage5main                     0 0.0102 0.3841629        74.1
+#>                           N.per.arm.2 Survive.per.arm.1 Survive.per.arm.2   N
+#> 0404TimeTrend00stage5main        75.9              28.7              29.3 150
 #> 
 #> $Nameofsaveddata
 #> $Nameofsaveddata$nameTable

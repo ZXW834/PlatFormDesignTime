@@ -22,12 +22,16 @@ The goal of PlatFormDesignTimeTrend is to simulates the multi-arm multi-stage or
 
 ## Installation
 
-You can install the development version of PlatFormDesignTimeTrend like so:
+You can install the 'PlatFormDesignTimeTrend' package 1.0.0 like so:
 
-``` r
+``` {r}
 # install.packages("PlatFormDesignTimeTrend")
-# install_github("ZXW834/PlatFormDesignTime")
+devtools::install_github("ZXW834/PlatFormDesignTime", build_vignettes = TRUE)
 ```
+
+## Tutorials
+- 'MAMS-CutoffScreening-tutorial' is a tutorial document of how to do cutoff screening under Bayesian MAMS trial
+- 'MAMS-trial-simulation-tutorial' is a tutorial document of how to do Bayesian MAMS trial simulation with or without time trend 
 
 ## Example
 
