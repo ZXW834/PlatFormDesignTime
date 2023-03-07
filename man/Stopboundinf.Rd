@@ -2,7 +2,7 @@
 % Please edit documentation in R/Transferdatatolist_Stopboundinf.R
 \name{Stopboundinf}
 \alias{Stopboundinf}
-\title{This function summarises and checks stopping boundary information.}
+\title{Stopboundinf}
 \usage{
 Stopboundinf(
   Stop.type = "Early-Pocock",
@@ -11,27 +11,29 @@ Stopboundinf(
 )
 }
 \arguments{
-\item{Stop.type}{The shape of stopping boundary}
+\item{Stop.type}{The type of stopping boundary. Default is "Early-Pocock" which is the Pocock boundary with early stopping.}
 
-\item{Boundary.type}{"Symmetric" or "Asymmetric"}
+\item{Boundary.type}{Whether the futility boundary and the efficacy boundary are the same conservative.
+Default is "Symmetric" which means they are as conservative as each other.
+Boundary.type = "Asymmetric" means that the efficacy boundary and the futility boundary are not as conservative as each other}
 
-\item{cutoff}{= c(cutoff1, cutoff2) #A vector
-#Pr(theta_1 > theta_0|D_n) > cutoff1. Should input the cutoff1 for efficacy boundary as the first element
-#Pr(theta_1 < theta_0|D_n) < cutoff2. Should input the cutoff2 for futility boundary as the first element}
+\item{cutoff}{= c(cutoff1, cutoff2). A numerical vector of cutoff value for each boundary.
+The first element is the efficacy boundary cutoff. The second element is the futility boundary cutoff
+Pr(theta_1 > theta_0|D_n) > cutoff1. Should input the cutoff1 for efficacy boundary as the first element
+Pr(theta_1 < theta_0|D_n) < cutoff2. Should input the cutoff2 for futility boundary as the first element}
 }
 \value{
-The list of information required for boundary construction
+The list of information required for boundary construction function 'Stopbound.inf'
 }
 \description{
-This function summarises and checks stopping boundary information.
+This function summaries and checks stopping boundary information.
 }
 \examples{
 Stop.type = "Early-Pocock" #(Pocock boundarty is a flat boundary across time)
 Boundary.type = "Symmetric"
 cutoff = c(0.9928, 0.0072)
-ns = c(60, 120, 180, 240, 300)
 
-Stopbound.inf = Stopboundinf()
+Stopbound.inf = Stopboundinf(Stop.type, Boundary.type, cutoff)
 #Stopbound.inf
 #$Stop.type
 # [1] "Early-Pocock"
@@ -39,6 +41,4 @@ Stopbound.inf = Stopboundinf()
 #[1] "Symmetric"
 #$cutoff
 # [1] 0.9928 0.0072
-#$ns
-#[1] 60 120 180 240 300
 }

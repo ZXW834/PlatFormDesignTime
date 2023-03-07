@@ -1,12 +1,12 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# PlatFormDesign
+# PlatFormDesignTimeTrend
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of PlatFormDesign is to simulates the multi-arm multi-stage or
+The goal of PlatFormDesignTimeTrend is to simulates the multi-arm multi-stage or
 platform trial with Bayesian approach using the ‘rstan’ package, which
 provides the R interface for to the stan. The package uses Thall’s and
 Trippa’s randomisation approach for Bayesian adaptive randomisation. In
@@ -16,11 +16,11 @@ different null scenario in this package.
 
 ## Installation
 
-You can install the development version of PlatFormDesign like so:
+You can install the development version of PlatFormDesignTimeTrend like so:
 
 ``` r
-# install.packages("PlatFormDesign")
-# install_github("ZXW834/PlatFormDesign")
+# install.packages("PlatFormDesignTimeTrend")
+# install_github("ZXW834/PlatFormDesignTimeTrend")
 ```
 
 ## Example
@@ -28,7 +28,7 @@ You can install the development version of PlatFormDesign like so:
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-library(PlatFormDesign)
+library(PlatFormDesignTimeTrend)
 #> Loading required package: rstan
 #> Loading required package: StanHeaders
 #> Loading required package: ggplot2

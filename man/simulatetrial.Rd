@@ -2,7 +2,7 @@
 % Please edit documentation in R/MainFunction.R
 \name{simulatetrial}
 \alias{simulatetrial}
-\title{This function simulate a platform trial applying adaptive methods where the time trend effect can be studied.}
+\title{simulatetrial}
 \usage{
 simulatetrial(
   ii,
@@ -23,21 +23,21 @@ simulatetrial(
 \arguments{
 \item{ii}{Meaning less parameter but required for foreach function in doParallel package}
 
-\item{response.probs}{A vector of true response probability for each arm}
+\item{response.probs}{A vector of true response probability for each arm. Default response.probs = c(0.4, 0.4).}
 
-\item{ns}{Vector of number of patient at each stage}
+\item{ns}{A vector of accumulated number of patient at each stage. Default is ns = c(30, 60, 90, 120, 150).}
 
-\item{max.ar}{The upper boundary for randomisation ratio for each arm}
+\item{max.ar}{The upper boundary for randomisation ratio for each arm. Default is 0.75 for a two arm trial.}
 
-\item{rand.type}{The randomisation type: "Coin" or "Urn"}
+\item{rand.type}{The method of applying patient allocation with a given randomisation probability vector. Default is "Urn".}
 
-\item{max.deviation}{The tuning parameter for Urn randomisation method}
+\item{max.deviation}{The tuning parameter for Urn randomisation method. Default is 3.}
 
-\item{model.inf}{The list of interim data analysis model information}
+\item{model.inf}{The list of interim data analysis model information for more see \code{\link{modelinf.fun}}}
 
-\item{Stopbound.inf}{The list of stop boundary information}
+\item{Stopbound.inf}{The list of stop boundary information for more see \code{\link{Stopboundinf}}}
 
-\item{Random.inf}{The list of Adaptive randomisation information}
+\item{Random.inf}{The list of Adaptive randomisation information for more see \code{\link{Randomisation.inf}}}
 
 \item{trend.inf}{The list of time trend information}
 }
@@ -45,7 +45,7 @@ simulatetrial(
 A matrix including all evaluation metrics
 }
 \description{
-This function simulate a platform trial applying adaptive methods where the time trend effect can be studied.
+This function simulates a MAMS trial applying adaptive methods where the time trend effect can be studied.
 }
 \examples{
 set.seed(1)
@@ -88,11 +88,4 @@ simulatetrial(response.probs = c(0.4, 0.4),
                trend.effect = c(0, 0),
                trend_add_or_multip = "mult"
                ))
-
-#   PP1C nC yC nE1 yE1 H1^1tpIE Intercept Trt1_Mean Trt1_Var
-# 1 0.7788 15  4  15   6        0    -1.019     0.569    0.593
-# 2 0.8808 22  6  38  16        0    -1.011     0.678    0.336
-# 3 0.9040 29  8  61  25        0    -0.990     0.618    0.239
-# 4 0.9940 36  8  84  39        1    -1.277     1.124    0.202
-# 5     NA NA NA  NA  NA       NA        NA        NA       NA
 }

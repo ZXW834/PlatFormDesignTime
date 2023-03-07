@@ -2,7 +2,7 @@
 % Please edit documentation in R/Simulation_Stansamplesummarytolist_Mixeffect.R
 \name{resultstantoRfunc.rand}
 \alias{resultstantoRfunc.rand}
-\title{This function summarise the mix effect stan output data to and transform them to be readable.}
+\title{resultstantoRfunc.rand}
 \usage{
 resultstantoRfunc.rand(group, fit, armleft, treatmentindex, K, ns)
 }
@@ -17,7 +17,7 @@ resultstantoRfunc.rand(group, fit, armleft, treatmentindex, K, ns)
 
 \item{K}{Total number of arms at the beginning}
 
-\item{ns}{A vector of cohort size at each stage}
+\item{ns}{A vector of accumulated number of patient at each stage}
 }
 \value{
 A list of stan result inference
@@ -35,4 +35,7 @@ This can be transformed to probit scale by using inv.logit() function.
 }
 \description{
 This function summarise the mix effect stan output data to and transform them to be readable.
+}
+\examples{
+\dontrun{resultstantoRfunc.rand(group, fit, armleft, treatmentindex, K, ns)}
 }

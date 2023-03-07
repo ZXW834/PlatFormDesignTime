@@ -2,8 +2,7 @@
 % Please edit documentation in R/Simulation_Stansamplesummary_Mixeffect.R
 \name{resultrtostats.rand}
 \alias{resultrtostats.rand}
-\title{The inner function of function resultstantoRfunc.rand()
-in Simulation_Stansamplesummarytolist_Mixeffect.R}
+\title{resultrtostats.rand}
 \usage{
 resultrtostats.rand(
   trteff = NA,
@@ -28,7 +27,7 @@ resultrtostats.rand(
 
 \item{fit}{The stan output}
 
-\item{ns}{A vector of cohort size at each stage}
+\item{ns}{A vector of accumulated number of patient at each stage}
 }
 \value{
 A list of stan result inference
@@ -40,6 +39,8 @@ post.prob.btcontrol: a vector including Posterior probability
 of each active treatment arm better than control
 }
 \description{
-The inner function of function resultstantoRfunc.rand()
-in Simulation_Stansamplesummarytolist_Mixeffect.R
+The inner function of function \code{\link{resultstantoRfunc.rand}}
+}
+\examples{
+\dontrun{resultrtostats.rand(trteff = NA, treatmentindex = NA, armleft, K, group, fit, ns)}
 }

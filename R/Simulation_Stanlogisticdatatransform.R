@@ -1,5 +1,6 @@
-#' This function transform the data in trial simulation to the data required for stan modelling
-#'
+#' @title stan.logisticmodeltrans
+#' @description This function transform the data in trial simulation to the data required for stan modelling
+
 #' @param z A vector of all treatment index data from the beginning of a trial
 #' @param y A vector of all outcome data from the beginning of a trial
 #' @param randomprob A named vector of randomisation probability to each arm
@@ -24,6 +25,15 @@
 #' @export
 #'
 #' @examples
+#' stan.logisticmodeltrans(
+#' z = c(1,2,1,2,2,1,2,1),
+#' y = c(0,0,0,0,1,1,1,1),
+#' randomprob = matrix(c( 0.5, 0.5), ncol = 2, dimnames = list(c("Stage1"), c("1", "2"))),
+#' group_indicator = c(1,1,1,1,1,1,1,1),
+#' armleft = 2,
+#' group = 1,
+#' variable.inf = "Fixeffect",
+#' reg.inf = "main")
 stan.logisticmodeltrans = function(z,
                                    y,
                                    randomprob,

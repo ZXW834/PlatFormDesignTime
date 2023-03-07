@@ -2,19 +2,18 @@
 % Please edit documentation in R/Transferdatatolist_Modelinf.R
 \name{modelinf.fun}
 \alias{modelinf.fun}
-\title{This function summarise the input parameters describing the model for analysis and transfer them into a list}
+\title{modelinf.fun}
 \usage{
 modelinf.fun(
   model = "tlr",
   ibb.inf = list(pi.star = 0.5, pess = 2, betabinomialmodel = ibetabinomial.post),
   tlr.inf = list(beta0_prior_mu = 0, beta1_prior_mu = 0, beta0_prior_sigma = 2.5,
     beta1_prior_sigma = 2.5, beta0_df = 7, beta1_df = 7, reg.inf = "main", variable.inf =
-    "Fixeffect"),
-  stanmodels = stanmodels
+    "Fixeffect")
 )
 }
 \arguments{
-\item{model}{ibb: betabinomial model / tlr: logistic model}
+\item{model}{The statistical model. ibb: betabinomial model / tlr: logistic model}
 
 \item{ibb.inf}{The list of information for betabinomial model including:
 betabinomialmodel: The betabinomial model, pi.star: prior response rate,
@@ -26,12 +25,25 @@ and the main effect of the linear terms in logistic model.
 reg.inf: The type of linear function in logistic model.
 variable.inf: Fixeffect/Mixeffect. Indicating whether a mix effect model
 is used (for time trend effect modelling)}
-
-\item{stanmodels}{The list of stan model}
 }
 \value{
-A list of model information
+A list of model information including model, ibb.inf and tlr.inf
 }
 \description{
-This function summarise the input parameters describing the model for analysis and transfer them into a list
+This function summarize the input parameters describing the model for analysis and transfer them into a list
+}
+\examples{
+modelinf.fun(model = "tlr",
+  ibb.inf = list(pi.star = 0.5,
+                 pess = 2,
+                 betabinomialmodel = ibetabinomial.post),
+  tlr.inf = list(beta0_prior_mu = 0,
+                 beta1_prior_mu = 0,
+                 beta0_prior_sigma = 2.5,
+                 beta1_prior_sigma = 2.5,
+                 beta0_df = 7,
+                 beta1_df = 7,
+                 reg.inf =  "main",
+                 variable.inf = "Fixeffect"
+                 ))
 }

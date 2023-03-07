@@ -1,14 +1,14 @@
+#' @title OutputStats.initialising
+#' @description This function initializes the output matrix including all evaluation metrics based on input information
 
-#' This function initializes the output matrix including all evaluation metrics based on input information
-#'
 #' @param variable.inf  The parameter information in the model
 #' @param reg.inf  The model information. For the fixed effect model, the input of reg.inf can be main, main + stage_continuous, main * stage_continuous, main + stage_discrete,
 #'      main * stage_discrete.
 #'      For the mixed effect model, the reg.inf is invalid.
-#' @param ns  Vector of number of patient at each stage
+#' @param ns  A vector of accumulated number of patient at each stage
 #' @param K  Total number of arm including control
 #'
-#' @return The empty output matrix including different parameters for inference
+#' @return The empty output matrix including different evaluation metrics.
 #' @export
 #'
 #' @examples

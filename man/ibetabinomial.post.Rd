@@ -2,7 +2,7 @@
 % Please edit documentation in R/ibetabinomialpost.R
 \name{ibetabinomial.post}
 \alias{ibetabinomial.post}
-\title{This function calculate the posterior probability of each active treatment arm better than control using betabinomial model}
+\title{ibetabinomial.post}
 \usage{
 ibetabinomial.post(n, y, pi.star = 0.5, pess = 2)
 }
@@ -19,7 +19,7 @@ ibetabinomial.post(n, y, pi.star = 0.5, pess = 2)
 A vector posterior probability of each active treatment arm better than control
 }
 \description{
-This function calculate the posterior probability of each active treatment arm better than control using betabinomial model
+This function calculates the posterior probability of each active treatment arm better than control using betabinomial model
 }
 \examples{
 n <- c(20,20,20,20)

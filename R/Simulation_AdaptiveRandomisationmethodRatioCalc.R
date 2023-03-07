@@ -1,7 +1,7 @@
-#'  This function adjusts the posterior randomisation probability for each arm using many approachs.
+#' @title ARmethod
+#' @description This function adjusts the posterior randomisation probability for each arm using many approaches.
 #'     Currently Thall's approach and Trippa's approach are used.
 #'     Double biased coin and other method will be added in the next version.
-#'
 #' @param Fixratio A indicator TRUE/FALSE
 #' @param BARmethod The indicator of which adaptive randomisation method is used
 #' @param group The current stage
@@ -21,6 +21,19 @@
 #' @export
 #'
 #' @examples
+#' ARmethod(Fixratio = FALSE,
+#' BARmethod = "Thall",
+#' group = 1,
+#' stats = matrix(rep(NA, 40), ncol = 8, nrow = 5),
+#' post.prob.btcontrol = 0.5,
+#' K = 2,
+#' n = c(30, 30),
+#' tuningparameter = "fixed",
+#' c = 1,
+#' post.prob.best = c(0.5, 0.5),
+#' max.ar = 0.75,
+#' armleft = 2,
+#' treatmentindex = 1)
 ARmethod = function(Fixratio,
                     BARmethod,
                     group,

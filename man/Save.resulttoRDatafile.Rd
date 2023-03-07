@@ -2,7 +2,7 @@
 % Please edit documentation in R/Saveoutput_toRData.R
 \name{Save.resulttoRDatafile}
 \alias{Save.resulttoRDatafile}
-\title{This function generates the name of file for output table and dataset}
+\title{Save.resulttoRDatafile}
 \usage{
 Save.resulttoRDatafile(
   input.info = list(response.probs = c(0.4, 0.4), ns = c(30, 60, 90, 120, 150), max.ar =

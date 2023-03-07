@@ -1,21 +1,24 @@
-#' This function summarises and checks stopping boundary information.
+#' @title Stopboundinf
+#' @description This function summaries and checks stopping boundary information.
+#' @param Stop.type The type of stopping boundary. Default is "Early-Pocock" which is the Pocock boundary with early stopping.
 #'
-#' @param Stop.type The shape of stopping boundary
-#' @param Boundary.type "Symmetric" or "Asymmetric"
-#' @param cutoff = c(cutoff1, cutoff2) #A vector
-#' #Pr(theta_1 > theta_0|D_n) > cutoff1. Should input the cutoff1 for efficacy boundary as the first element
-#' #Pr(theta_1 < theta_0|D_n) < cutoff2. Should input the cutoff2 for futility boundary as the first element
+#' @param Boundary.type Whether the futility boundary and the efficacy boundary are the same conservative.
+#'     Default is "Symmetric" which means they are as conservative as each other.
+#'     Boundary.type = "Asymmetric" means that the efficacy boundary and the futility boundary are not as conservative as each other
+#' @param cutoff = c(cutoff1, cutoff2). A numerical vector of cutoff value for each boundary.
+#'     The first element is the efficacy boundary cutoff. The second element is the futility boundary cutoff
+#'     Pr(theta_1 > theta_0|D_n) > cutoff1. Should input the cutoff1 for efficacy boundary as the first element
+#'     Pr(theta_1 < theta_0|D_n) < cutoff2. Should input the cutoff2 for futility boundary as the first element
 #'
-#' @return The list of information required for boundary construction
+#' @return The list of information required for boundary construction function 'Stopbound.inf'
 #' @export
 #'
 #' @examples
 #' Stop.type = "Early-Pocock" #(Pocock boundarty is a flat boundary across time)
 #' Boundary.type = "Symmetric"
 #' cutoff = c(0.9928, 0.0072)
-#' ns = c(60, 120, 180, 240, 300)
 #'
-#' Stopbound.inf = Stopboundinf()
+#' Stopbound.inf = Stopboundinf(Stop.type, Boundary.type, cutoff)
 #' #Stopbound.inf
 #' #$Stop.type
 #' # [1] "Early-Pocock"
@@ -23,8 +26,6 @@
 #' #[1] "Symmetric"
 #' #$cutoff
 #' # [1] 0.9928 0.0072
-#' #$ns
-#' #[1] 60 120 180 240 300
 Stopboundinf = function(Stop.type="Early-Pocock", Boundary.type="Symmetric", cutoff=c(0.9928, 0.0072)) {
   if (Boundary.type == "Symmetric") {
     if (Stop.type == "Early-OBF" & cutoff[1] == cutoff[2]) {

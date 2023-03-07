@@ -2,17 +2,17 @@
 % Please edit documentation in R/Simulation_Boundaryconstruction.R
 \name{Boundaryconstruction}
 \alias{Boundaryconstruction}
-\title{This function constructs the stopping boundary based on input information}
+\title{Boundaryconstruction}
 \usage{
 Boundaryconstruction(Stopbound.inf = Stopbound.inf, ns = ns)
 }
 \arguments{
-\item{Stopbound.inf}{The list of stop boundary information}
+\item{Stopbound.inf}{The list of stop boundary information for more see \code{\link{Stopboundinf}}}
 
-\item{ns}{Vector of number of patient at each stage}
+\item{ns}{A vector of accumulated number of patient at each stage}
 }
 \value{
-The futility boundary and the efficacy boundary
+A list of the futility boundary and the efficacy boundary
 }
 \description{
 This function constructs the stopping boundary based on input information
@@ -20,7 +20,5 @@ This function constructs the stopping boundary based on input information
 \examples{
  Stopbound.inf=list(Stop.type="Early-Pocock",Boundary.type="Symmetric",cutoff=c(0.9928,0.0072))
  ns=c(60,120,180,240,300)
-
  Boundaryconstruction(Stopbound.inf, ns)
- ------------------------------------------
 }

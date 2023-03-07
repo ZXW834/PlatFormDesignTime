@@ -1,10 +1,10 @@
+#' @title Boundaryconstruction
+#' @description This function constructs the stopping boundary based on input information
 
-#' This function constructs the stopping boundary based on input information
+#' @param Stopbound.inf The list of stop boundary information for more see \code{\link{Stopboundinf}}
+#' @param ns  A vector of accumulated number of patient at each stage
 #'
-#' @param Stopbound.inf The list of stop boundary information
-#' @param ns  Vector of number of patient at each stage
-#'
-#' @return The futility boundary and the efficacy boundary
+#' @return A list of the futility boundary and the efficacy boundary
 #' @importFrom stats pnorm
 #' @importFrom stats var
 #' @export
@@ -12,9 +12,7 @@
 #' @examples
 #'  Stopbound.inf=list(Stop.type="Early-Pocock",Boundary.type="Symmetric",cutoff=c(0.9928,0.0072))
 #'  ns=c(60,120,180,240,300)
-#'
 #'  Boundaryconstruction(Stopbound.inf, ns)
-#'  ------------------------------------------
 Boundaryconstruction = function(Stopbound.inf = Stopbound.inf, ns = ns) {
   cutoff.temp = Stopbound.inf$cutoff #(cutoff1, cutoff2): cutoff1 is efficacy cutoff; cutoff2 is futility cutoff
   if (length(cutoff.temp) != 2 | sum(is.na(cutoff.temp)) != 0) {

@@ -1,10 +1,19 @@
-perHtypeIerrorfunc = function(res) {
+#' @title perHtypeIerror_powerfunc
+#' @description This function reads in the output matrix of a number of trial replicates to calculate the error rate
+#' @param res A list of output matrix of a number of trial replicates
+#'
+#' @return Type I error rate or power of each treatment - control comparison
+#' @export
+#'
+#' @examples
+#' \dontrun{perHtypeIerror_powerfunc(res)}
+perHtypeIerror_powerfunc = function(res) {
   colMeans(t(sapply(res, function(x) {
     resname = colnames(x)
     K = sum(stringr::str_detect(colnames(x), "H")) + 1
     #Indentify which hypothesis is rejected
     reject = which(matrix(x[, (K - 1 + 2 * K + 1):(K - 1 + 2 * K + K - 1)] %in% 1, ncol =
-                            K - 1), 1)[, 2]
+                            K - 1), arr.ind = TRUE)[, 2]
     if (length(reject) >= 1) {
       rejectres = rep(0, K - 1)
       rejectres[reject] = 1
@@ -15,7 +24,16 @@ perHtypeIerrorfunc = function(res) {
     }
   })))
 }
-FWERfunc = function(res) {
+#' @title FWER_disconjunctivepowerfunc
+#' @description This function reads in the output matrix of a number of trial replicates to calculate the Family wise error rate or disconjunctive power
+#' @param res A list of output matrix of a number of trial replicates
+#'
+#' @return Family wise error rate or disconjunctive power
+#' @export
+#'
+#' @examples
+#' \dontrun{FWER_disconjunctivepowerfunc(res)}
+FWER_disconjunctivepowerfunc = function(res) {
   mean(sapply(res, function(x) {
     resname = colnames(x)
     K = sum(stringr::str_detect(colnames(x), "H")) + 1
@@ -28,20 +46,29 @@ FWERfunc = function(res) {
   }))
 }
 
+#' @title Meanfunc
+#' @description This function reads in the output matrix of a number of trial replicates to calculate mean treatment effect estimate.
+#' @param res A list of output matrix of a number of trial replicates
+#'
+#' @return Mean treatment effect estimates of each treatment arm
+#' @export
+#'
+#' @examples
+#' \dontrun{Meanfunc(res)}
 Meanfunc = function(res) {
-  K = sapply(res, function(x) {
+  K = mean(sapply(res, function(x) {
     K = sum(stringr::str_detect(colnames(x), "H")) + 1
     return(K)
-  })
+  }))
   meaneffect = colMeans(matrix(t(sapply(res, function(x) {
     stage = dim(x)[1]
     resname = colnames(x)
     K = sum(stringr::str_detect(colnames(x), "H")) + 1
     reject = which(matrix(x[, (K - 1 + 2 * K + 1):(K - 1 + 2 * K + K - 1)] %in% 1, ncol =
-                            K - 1), 1)[, 2]
+                            K - 1), arr.ind = TRUE)[,2]
     if (length(reject) >= 1) {
       drop.at = which(matrix(x[, (K - 1 + 2 * K + 1):(K - 1 + 2 * K + K - 1)] %in% 1, ncol =
-                               K - 1), 1)[, 1]
+                               K - 1), arr.ind = TRUE)[, 1]
       drop.at.all = rep(stage, K - 1)
       drop.at.all[reject] = drop.at
       treatmentindex = seq(1, K - 1)
@@ -69,20 +96,29 @@ Meanfunc = function(res) {
   })), ncol = K - 1))
   return(meaneffect)
 }
+#' @title varfunc
+#' @description This function reads in the output matrix of a number of trial replicates to calculate the variance of treatment effect estimate.
+#' @param res A list of output matrix of a number of trial replicates
+#'
+#' @return The variance of Treatment effect estimates of each treatment arm
+#' @export
+#'
+#' @examples
+#' \dontrun{varfunc(res)}
 varfunc = function(res) {
-  K = sapply(res, function(x) {
+  K = mean(sapply(res, function(x) {
     K = sum(stringr::str_detect(colnames(x), "H")) + 1
     return(K)
-  })
+  }))
   meaneffect = matrixStats::colVars(matrix(t(sapply(res, function(x) {
     stage = dim(x)[1]
     resname = colnames(x)
     K = sum(stringr::str_detect(colnames(x), "H")) + 1
     reject = which(matrix(x[, (K - 1 + 2 * K + 1):(K - 1 + 2 * K + K - 1)] %in% 1, ncol =
-                            K - 1), 1)[, 2]
+                            K - 1), arr.ind = TRUE)[,2]
     if (length(reject) >= 1) {
       drop.at = which(matrix(x[, (K - 1 + 2 * K + 1):(K - 1 + 2 * K + K - 1)] %in% 1, ncol =
-                               K - 1), 1)[, 1]
+                               K - 1), arr.ind = TRUE)[, 1]
       drop.at.all = rep(stage, K - 1)
       drop.at.all[reject] = drop.at
       treatmentindex = seq(1, K - 1)
@@ -111,20 +147,29 @@ varfunc = function(res) {
   return(meaneffect)
 }
 
+#' @title Nfunc
+#' @description This function reads in the output matrix of a number of trial replicates to calculate mean estimate of total number of patients allocated to each arm
+#' @param res A list of output matrix of a number of trial replicates
+#'
+#' @return The mean estimate of total number of patients allocated to each arm
+#' @export
+#'
+#' @examples
+#' \dontrun{Nfunc(res)}
 Nfunc = function(res) {
-  K = sapply(res, function(x) {
+  K = mean(sapply(res, function(x) {
     K = sum(stringr::str_detect(colnames(x), "H")) + 1
     return(K)
-  })
+  }))
   Nmean = colMeans(matrix(t(sapply(res, function(x) {
     stage = dim(x)[1]
     resname = colnames(x)
     K = sum(stringr::str_detect(colnames(x), "H")) + 1
     reject = which(matrix(x[, (K - 1 + 2 * K + 1):(K - 1 + 2 * K + K - 1)] %in% 1, ncol =
-                            K - 1), 1)[, 2]
+                            K - 1), arr.ind = TRUE)[,2]
     if (length(reject) >= 1) {
       drop.at = which(matrix(x[, (K - 1 + 2 * K + 1):(K - 1 + 2 * K + K - 1)] %in% 1, ncol =
-                               K - 1), 1)[, 1]
+                               K - 1), arr.ind = TRUE)[, 1]
       drop.at.all = rep(stage, K - 1)
       drop.at.all[reject] = drop.at
       treatmentindex = seq(1, K - 1)
@@ -152,20 +197,29 @@ Nfunc = function(res) {
   return(Nmean)
 }
 
+#' @title Sperarmfunc
+#' @description This function reads in the output matrix of a number of trial replicates to calculate mean total number of survived patients of each arm
+#' @param res A list of output matrix of a number of trial replicates
+#'
+#' @return The mean total number of survived patients of each arm
+#' @export
+#'
+#' @examples
+#' \dontrun{Sperarmfunc(res)}
 Sperarmfunc = function(res) {
-  K = sapply(res, function(x) {
+  K = mean(sapply(res, function(x) {
     K = sum(stringr::str_detect(colnames(x), "H")) + 1
     return(K)
-  })
+  }))
   Smean = colMeans(matrix(t(sapply(res, function(x) {
     stage = dim(x)[1]
     resname = colnames(x)
     K = sum(stringr::str_detect(colnames(x), "H")) + 1
     reject = which(matrix(x[, (K - 1 + 2 * K + 1):(K - 1 + 2 * K + K - 1)] %in% 1, ncol =
-                            K - 1), 1)[, 2]
+                            K - 1), arr.ind = TRUE)[,2]
     if (length(reject) >= 1) {
       drop.at = which(matrix(x[, (K - 1 + 2 * K + 1):(K - 1 + 2 * K + K - 1)] %in% 1, ncol =
-                               K - 1), 1)[, 1]
+                               K - 1), arr.ind = TRUE)[, 1]
       drop.at.all = rep(stage, K - 1)
       drop.at.all[reject] = drop.at
       treatmentindex = seq(1, K - 1)
@@ -193,12 +247,12 @@ Sperarmfunc = function(res) {
   return(Smean)
 }
 
-list.of.analysisfunction <-
-  list(
-    perHtypeIerrorfunc = perHtypeIerrorfunc,
-    FWERfunc = FWERfunc,
-    Meanfunc = Meanfunc,
-    varfunc = varfunc,
-    Nfunc = Nfunc,
-    Sperarmfunc = Sperarmfunc
-  )
+# list.of.analysisfunction <-
+#   list(
+#     perHtypeIerrorfunc = perHtypeIerrorfunc,
+#     FWERfunc = FWERfunc,
+#     Meanfunc = Meanfunc,
+#     varfunc = varfunc,
+#     Nfunc = Nfunc,
+#     Sperarmfunc = Sperarmfunc
+#   )

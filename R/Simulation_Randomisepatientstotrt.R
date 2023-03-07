@@ -1,6 +1,6 @@
-#' This is a function doing the randomisation process.
-#' This Function generate the Sequence for patient allocation to each arm, patient outcomes.
-#'
+#' @title AdaptiveRandomisation
+#' @description This is a function doing the randomisation process. This Function generates the Sequence for patient allocation to each arm, patient outcomes.
+
 #' @param Fixratio A indicator TRUE/FALSE
 #' @param rand.type "Coin": Biased coin; "Urn": Urn method
 #' @param K Total number of arms at the beginning
@@ -14,7 +14,7 @@
 #' @param trend.function The function returns time trend effect regarding to different time trend pattern
 #' @param trend.effect The strength of time trend effect as a parameter in trend.function()
 #' @param treatmentindex The vector of treatment arm index excluding the control arm whose index is 0
-#' @param ns Vector of number of patient at each stage
+#' @param ns A vector of accumulated number of patient at each stage
 #' @param Fixratiocontrol A numeric value indicating the weight of control in randomisation.
 #'     Eg. 1 means equal randomisation, 2 means thw number of patients allocated to control is twice as large as other treatment arm.
 #'
@@ -29,6 +29,22 @@
 #' @export
 #'
 #' @examples
+#' AdaptiveRandomisation(
+#' Fixratio = FALSE,
+#' rand.type = "Urn",
+#' K = 2,
+#' n.new = 30,
+#' randomprob = matrix(c(0.5, 0.5), ncol = 2, dimnames = list(c(),c("1","2"))),
+#' treatmentindex = 1,
+#' groupwise.response.probs = matrix(rep(c(0.4, 0.4), 5), byrow = TRUE, ncol = 2, nrow = 5),
+#' group = 1,
+#' armleft = 2,
+#' max.deviation = 3,
+#' trend_add_or_multip = "mult",
+#' trend.function = function(ns, group, i, trend.effect) {delta = 0; return(delta)},
+#' trend.effect = c(0, 0),
+#' ns = c(30, 60, 90, 120, 150),
+#' Fixratiocontrol = NA)
 AdaptiveRandomisation = function(Fixratio,
                                  rand.type,
                                  K,

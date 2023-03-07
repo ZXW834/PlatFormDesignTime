@@ -2,7 +2,7 @@
 % Please edit documentation in R/Simulation_Stansamplesummary_Fixeffect.R
 \name{resultrtostats}
 \alias{resultrtostats}
-\title{This is an inner function of the function (resultstantoRfunc()) in Simulation_Stansamplesummarytolist.R file}
+\title{resultrtostats}
 \usage{
 resultrtostats(
   trteff = NA,
@@ -30,7 +30,7 @@ resultrtostats(
 
 \item{fit}{The stan output}
 
-\item{ns}{A vector of cohort size at each stage}
+\item{ns}{A vector of accumulated number of patient at each stage}
 }
 \value{
 A list of stan result inference
@@ -42,5 +42,8 @@ post.prob.btcontrol: a vector including Posterior probability
 of each active treatment arm better than control
 }
 \description{
-This is an inner function of the function (resultstantoRfunc()) in Simulation_Stansamplesummarytolist.R file
+This is an inner function of the function \code{\link{resultstantoRfunc}}
+}
+\examples{
+\dontrun{resultrtostats(trteff = NA, treatmentindex = NA, armleft, K, group, reg.inf, fit, ns)}
 }

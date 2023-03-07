@@ -1,4 +1,5 @@
-#' This function calculate the posterior probability of each active treatment arm better than control using betabinomial model
+#' @title ibetabinomial.post
+#' @description This function calculates the posterior probability of each active treatment arm better than control using betabinomial model
 #'
 #' @param n A vector of treated patients for each arm (The first element is for control)
 #' @param y A vector of treated patient outcomes for each arm (The first element is for control)

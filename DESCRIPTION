@@ -1,11 +1,11 @@
-Package: PlatFormDesign
-Title: This package simulates the multi-arm multi-stage or platform trial with Bayesian adaptive approach via stan.
-Version: 1.0.0.9000
+Package: PlatFormDesignTimeTrend
+Title: This Package Simulates the Multi-Arm Multi-Stage or Platform Trial with Bayesian Adaptive Approach via Stan.
+Version: 1.0.0
 Authors@R: 
     person("ZIYAN", "WANG", , "zw7g20@soton.ac.uk", role = c("aut", "cre"))
 Maintainer: ZIYAN WANG <zw7g20@soton.ac.uk>
-Description: This package simulates the multi-arm multi-stage or platform trial with Bayesian approach using the 'rstan' package, which provides the R interface for to the stan. 
-    The package uses Thall's and Trippa's randomisation approach for Bayesian adaptive randomisation. 
+Description: Simulating the multi-arm multi-stage or platform trial with Bayesian approach using the 'rstan' package, which provides the R interface for to the Stan. 
+    The package uses "Thall" and "Trippa" randomisation approach for Bayesian adaptive randomisation. 
     In addition, the time trend problem of platform trial can be studied in this package.
     There is a demo for multi-arm multi-stage trial for two different null scenario in this package.
 Encoding: UTF-8
@@ -21,14 +21,15 @@ Imports:
     RcppParallel (>= 5.0.1),
     rstantools (>= 2.2.0),
     ggplot2 (>= 3.4.0),
-    stats (>= 4.1.2),
     doParallel (>= 1.0.17),
     boot (>= 1.3-28),
     matrixStats (>= 0.61.0),
     stringr (>= 1.4.0),
     foreach (>= 1.5.1),
     iterators (>= 1.0.13),
-    reshape (>= 0.8.8)
+    reshape (>= 0.8.8),
+    BiocManager (>= 1.30.19),
+    rjags
 LinkingTo: 
     BH (>= 1.66.0),
     Rcpp (>= 0.12.0),
@@ -38,3 +39,8 @@ LinkingTo:
     rstan (>= 2.18.1)
 SystemRequirements: GNU make
 License: MIT + file LICENSE
+Suggests: 
+    rmarkdown,
+    knitr
+VignetteBuilder: knitr
+LazyData: true

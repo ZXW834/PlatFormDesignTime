@@ -1,13 +1,27 @@
-#' This function checks the validity of the randomisation information input
-#'
-#' @param Random.inf A list of adaptive randomisation information required for randomisation
-#'
-#' @return #A checked list of input randomisation information
+#' @title Randomisation.inf
+#' @description This function checks the validity of the randomisation information input
+
+#' @param Random.inf A list of adaptive randomisation information.
+#'     'Fixratio' a indicator of whether the randomisation process uses fix ratio. Default is FALSE.
+#'     'Fixratiocontrol' the numerical value indicating the randomisation weight of the control arm compared to the treatment arms. Default is NA for Fixratio = FALSE.
+#'     'BARmethod' the Bayesian adaptive randomisation type. Default is "Thall" indicating the use of Thall's approach in the randomisation process. The other value is 'Trippa'.
+#'     'Thall.tuning.inf' the list of tuning parameter for Thall's approach including 'tuningparameter' (Default is "Fixed" indicating that the tuning paramter is fixed for all stages) and 'fixvalue' (Default is 1).
+#' @return A list of input randomisation information
 #' @export
 #'
 #' @examples
-Randomisation.inf = function(Random.inf = Random.inf) {
-  #----------------------------Randomisation information-----------------------
+#' Randomisation.inf = function(Random.inf = list(
+#' Fixratio = FALSE,
+#' Fixratiocontrol = NA,
+#' BARmethod = "Thall",
+#' Thall.tuning.inf = list(tuningparameter = "Fixed",  fixvalue = 1)
+#' ))
+Randomisation.inf = function(Random.inf = list(
+  Fixratio = FALSE,
+  Fixratiocontrol = NA,
+  BARmethod = "Thall",
+  Thall.tuning.inf = list(tuningparameter = "Fixed",  fixvalue = 1)
+)) {
   Fixratio = Random.inf$Fixratio
   if (Fixratio == T) {
     if (is.na(Random.inf$Fixratiocontrol) |
@@ -72,5 +86,3 @@ Randomisation.inf = function(Random.inf = Random.inf) {
     }
   }
 }
-
-#------------------------------------------------------------------------

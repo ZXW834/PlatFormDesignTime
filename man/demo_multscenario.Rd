@@ -2,23 +2,24 @@
 % Please edit documentation in R/Demo_multiplescenariotrialsimulation.R
 \name{demo_multscenario}
 \alias{demo_multscenario}
-\title{This is a demo function simulating multi-arm multi-stage design with two different null scenarios where the response probability of control is 0.15 and 0.4, respectively.
-The clinically meaningful increment on probability scale is 0.2. The stopping boundary is the OBF. The cutoff vector in the demo is tuned to keep Type I error rate to be 0.05}
+\title{demo_multscenario}
 \usage{
-demo_multscenario(ntrials = 1000, cl = 2)
+demo_multscenario(ntrials = 1000, cl = 2, save_data = FALSE)
 }
 \arguments{
 \item{ntrials}{A numeric value. The number of total trail replicates for each scenario.}
 
 \item{cl}{A numeric variable indicating how many cores you want to use in parallel programming.}
+
+\item{save_data}{An indicator of whether the outputdata need to be saved. Default is FALSE.}
 }
 \value{
-Saved data file for plotting. One is results of trial replicates for all scenarios. The other one is a data frame containing all summarised evaluation metrics for all scenarios
+A list of data for plotting. One is results of trial replicates for all scenarios. The other one is a data frame containing all summarised evaluation metrics for all scenarios
 }
 \description{
 This is a demo function simulating multi-arm multi-stage design with two different null scenarios where the response probability of control is 0.15 and 0.4, respectively.
-The clinically meaningful increment on probability scale is 0.2. The stopping boundary is the OBF. The cutoff vector in the demo is tuned to keep Type I error rate to be 0.05
+The clinically meaningful increment on probability scale is 0.2. The stopping boundary is the OBF. The cutoff vector in the demo is tuned to keep Type I error rate to be 0.05. The output data can be saved as .RData file
 }
 \examples{
-# demo_multscenario(ntrials = 10, cl = 2)
+demo_multscenario(ntrials = 10, cl = 2, save_data = FALSE)
 }

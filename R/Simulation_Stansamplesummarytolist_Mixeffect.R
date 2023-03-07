@@ -1,11 +1,12 @@
-#' This function summarise the mix effect stan output data to and transform them to be readable.
-#'
+#' @title resultstantoRfunc.rand
+#' @description This function summarise the mix effect stan output data to and transform them to be readable.
+
 #' @param group The current stage
 #' @param fit The stan output
 #' @param armleft The number of treatment left in the platform (>2)
 #' @param treatmentindex A vector of treatment index at the beginning of a trial
 #' @param K Total number of arms at the beginning
-#' @param ns A vector of cohort size at each stage
+#' @param ns A vector of accumulated number of patient at each stage
 #'
 #' @return A list of stan result inference
 #'     stats1: A vector of posterior probability for all treatment arms
@@ -22,6 +23,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{resultstantoRfunc.rand(group, fit, armleft, treatmentindex, K, ns)}
 resultstantoRfunc.rand = function(group, fit, armleft, treatmentindex, K, ns) {
   stats6 = rep(NA, length(ns) - 1)
   stats7 = {

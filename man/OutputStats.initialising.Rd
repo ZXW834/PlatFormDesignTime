@@ -2,7 +2,7 @@
 % Please edit documentation in R/Simulation_Outputmatrixinitialization.R
 \name{OutputStats.initialising}
 \alias{OutputStats.initialising}
-\title{This function initializes the output matrix including all evaluation metrics based on input information}
+\title{OutputStats.initialising}
 \usage{
 OutputStats.initialising(variable.inf, reg.inf, ns, K)
 }
@@ -13,12 +13,12 @@ OutputStats.initialising(variable.inf, reg.inf, ns, K)
 main * stage_discrete.
 For the mixed effect model, the reg.inf is invalid.}
 
-\item{ns}{Vector of number of patient at each stage}
+\item{ns}{A vector of accumulated number of patient at each stage}
 
 \item{K}{Total number of arm including control}
 }
 \value{
-The empty output matrix including different parameters for inference
+The empty output matrix including different evaluation metrics.
 }
 \description{
 This function initializes the output matrix including all evaluation metrics based on input information

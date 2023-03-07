@@ -1,5 +1,6 @@
-#' This is an inner function of the function (resultstantoRfunc()) in Simulation_Stansamplesummarytolist.R file
-#'
+#' @title resultrtostats
+#' @description This is an inner function of the function \code{\link{resultstantoRfunc}}
+
 #' @param trteff Stan posterior samples of treatment effect sample distribution
 #' @param treatmentindex A vector of treatment index at the beginning of a trial
 #' @param armleft The number of treatment left in the platform (>2)
@@ -7,7 +8,7 @@
 #' @param group The current stage
 #' @param reg.inf The information of how much accumulated information will be used
 #' @param fit The stan output
-#' @param ns A vector of cohort size at each stage
+#' @param ns A vector of accumulated number of patient at each stage
 #'
 #' @return A list of stan result inference
 #'     stats1: A vector of posterior probability for all treatment arms
@@ -19,6 +20,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{resultrtostats(trteff = NA, treatmentindex = NA, armleft, K, group, reg.inf, fit, ns)}
 resultrtostats = function(trteff = NA,
                           treatmentindex = NA,
                           armleft,

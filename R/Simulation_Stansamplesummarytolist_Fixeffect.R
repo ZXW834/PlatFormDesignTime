@@ -1,12 +1,13 @@
-#' This function summarise the fix effect stan output data to and transform them to be readable.
-#'
+#' @title resultstantoRfunc
+#' @description This function summarise the fix effect stan output data to and transform them to be readable.
+
 #' @param group The current stage
 #' @param reg.inf The information of how much accumulated information will be used
 #' @param fit The stan output
 #' @param armleft The number of treatment left in the platform (>2)
 #' @param treatmentindex A vector of treatment index at the beginning of a trial
 #' @param K Total number of arms at the beginning
-#' @param ns A vector of cohort size at each stage
+#' @param ns A vector of accumulated number of patient at each stage
 #'
 #' @return A list of stan result inference
 #'     stats1: A vector of posterior probability for all treatment arms
@@ -23,6 +24,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{resultstantoRfunc(group, reg.inf, fit, armleft, treatmentindex, K, ns)}
 resultstantoRfunc = function(group,
                              reg.inf,
                              fit,
@@ -32,6 +34,30 @@ resultstantoRfunc = function(group,
                              ns) {
   sampeff = rstan::extract(fit, 'beta1')[[1]]
   sampeff0 = matrix(rstan::extract(fit, 'b_Intercept')[[1]], ncol = 1)
+  if (reg.inf == "main") {
+    stats6 = {
+    }
+    stats7 = {
+    }
+  }
+  else if (reg.inf == "main + stage_continuous") {
+    stats6 = rep(NA, 1)
+    stats7 = {
+    }
+  }
+  else if (reg.inf == "main * stage_continuous") {
+    stats6 = rep(NA, 1)
+    stats7 = rep(NA, K - 1)
+  }
+  else if (reg.inf == "main + stage_discrete") {
+    stats6 = rep(NA, length(ns) - 1)
+    stats7 = {
+    }
+  }
+  else if (reg.inf == "main * stage_discrete") {
+    stats6 = rep(NA, length(ns) - 1)
+    stats7 = rep(NA, (K - 1) * (length(ns) - 1))
+  }
   #--------------------Only Main effect----------------
   if (group == 1 | reg.inf == "main") {
     trteff = matrix(sampeff[, 1:(armleft - 1)], ncol = armleft - 1)
@@ -61,30 +87,6 @@ resultstantoRfunc = function(group,
     }
     #Transfer from logit scale to probability scale
     sampoutcome = inv.logit(sampefftotal)
-    if (reg.inf == "main") {
-      stats6 = {
-      }
-      stats7 = {
-      }
-    }
-    else if (reg.inf == "main + stage_continuous") {
-      stats6 = rep(NA, 1)
-      stats7 = {
-      }
-    }
-    else if (reg.inf == "main * stage_continuous") {
-      stats6 = rep(NA, 1)
-      stats7 = rep(NA, K - 1)
-    }
-    else if (reg.inf == "main + stage_discrete") {
-      stats6 = rep(NA, length(ns) - 1)
-      stats7 = {
-      }
-    }
-    else if (reg.inf == "main * stage_discrete") {
-      stats6 = rep(NA, length(ns) - 1)
-      stats7 = rep(NA, (K - 1) * (length(ns) - 1))
-    }
   }
   #--------------------Main effect and stage effect independent----------------
   else if (group > 1 & stringr::str_detect(reg.inf, "\\+")) {

@@ -1,4 +1,5 @@
-#' This function generates the name of file for output table and dataset
+#' @title Save.resulttoRDatafile
+#' @description This function generates the name of file for output table and dataset
 #'
 #' @param input.info A list of input information require for trial simulation
 #'

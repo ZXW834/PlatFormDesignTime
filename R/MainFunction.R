@@ -1,15 +1,15 @@
-#' This function simulate a platform trial applying adaptive methods where the time trend effect can be studied.
-#'
+#' @title simulatetrial
+#' @description This function simulates a MAMS trial applying adaptive methods where the time trend effect can be studied.
 #' @param ii Meaning less parameter but required for foreach function in doParallel package
-#' @param response.probs A vector of true response probability for each arm
-#' @param ns  Vector of number of patient at each stage
-#' @param max.ar The upper boundary for randomisation ratio for each arm
-#' @param rand.type The randomisation type: "Coin" or "Urn"
-#' @param max.deviation The tuning parameter for Urn randomisation method
-#' @param Stopbound.inf The list of stop boundary information
-#' @param Random.inf The list of Adaptive randomisation information
+#' @param response.probs A vector of true response probability for each arm. Default response.probs = c(0.4, 0.4).
+#' @param ns  A vector of accumulated number of patient at each stage. Default is ns = c(30, 60, 90, 120, 150).
+#' @param max.ar The upper boundary for randomisation ratio for each arm. Default is 0.75 for a two arm trial.
+#' @param rand.type The method of applying patient allocation with a given randomisation probability vector. Default is "Urn".
+#' @param max.deviation The tuning parameter for Urn randomisation method. Default is 3.
+#' @param Stopbound.inf The list of stop boundary information for more see \code{\link{Stopboundinf}}
+#' @param Random.inf The list of Adaptive randomisation information for more see \code{\link{Randomisation.inf}}
 #' @param trend.inf The list of time trend information
-#' @param model.inf The list of interim data analysis model information
+#' @param model.inf The list of interim data analysis model information for more see \code{\link{modelinf.fun}}
 #'
 #' @return A matrix including all evaluation metrics
 #' @export
@@ -55,13 +55,6 @@
 #'                trend.effect = c(0, 0),
 #'                trend_add_or_multip = "mult"
 #'                ))
-#'
-#' #   PP1C nC yC nE1 yE1 H1^1tpIE Intercept Trt1_Mean Trt1_Var
-#' # 1 0.7788 15  4  15   6        0    -1.019     0.569    0.593
-#' # 2 0.8808 22  6  38  16        0    -1.011     0.678    0.336
-#' # 3 0.9040 29  8  61  25        0    -0.990     0.618    0.239
-#' # 4 0.9940 36  8  84  39        1    -1.277     1.124    0.202
-#' # 5     NA NA NA  NA  NA       NA        NA        NA       NA
 simulatetrial <- function(ii,
                            response.probs = c(0.4, 0.4),
                            ns = c(30, 60, 90, 120, 150),
@@ -119,6 +112,7 @@ simulatetrial <- function(ii,
   randomprob = initialised.par$randomprob
   z = initialised.par$z
   y = initialised.par$y
+
   group_indicator = initialised.par$group_indicator
   post.prob.best.mat = initialised.par$post.prob.best.mat
   #Initialize the output data frame: stats
@@ -126,7 +120,10 @@ simulatetrial <- function(ii,
                                    model.inf$tlr.inf$reg.inf,
                                    ns,
                                    K)
-
+  # ----For random effect initialisation
+  ntemp=matrix(rep(NA,nrow(stats)*K),nrow=K)
+  ytemp=matrix(rep(NA,nrow(stats)*K),nrow=K)
+  # -----
   #Generating time trend function ("trend.function") based on input trend information
   #and check whether the input is reasonable using the "Timeindicator" variable
   Timetrendfunctionlist = Timetrend.fun(trend.inf)
@@ -175,6 +172,8 @@ simulatetrial <- function(ii,
     # group_indicator: stage index vector indicating the stage at which each patient is treated
     n = n + nstage
     y1 = y1 + ystage
+    ntemp[,group]=nstage
+    ytemp[,group]=ystage
     stats2 = as.vector(matrix(c(n, y1), nrow = 2, byrow = TRUE))
     z = c(z, znew)
     y = c(y, ynew)
@@ -413,7 +412,7 @@ simulatetrial <- function(ii,
           treatmentindex = treatmentindex[is.na(match(treatmentindex, treatmentdrop))]
         }
       }
-      else if (model.inf$tlr.inf$variable.inf == "Mixeffect") {
+      else if (model.inf$tlr.inf$variable.inf == "Mixeffect.stan") {
         dataran = list(
           K = armleft,
           N = Ndropped,
@@ -461,6 +460,66 @@ simulatetrial <- function(ii,
         sampefftotal = processedfitresult.rand$sampefftotal
         post.prob.btcontrol = processedfitresult.rand$post.prob.btcontrol
 
+        #-Calculating posterior probability of each arm (including control) to be the best arm-
+        # post.prob.best: The posterior probability of each arm (including control) to be the best arm
+        # This is required for Thall's randomisation approach
+        for (q in 1:armleft) {
+          post.prob.best.mat[group, zlevel[q]] = (sum(max.col(sampefftotal) == q)) /
+            2500
+        }
+        post.prob.best = post.prob.best.mat[group,]
+        #Normalizing in case any value equals zero
+        post.prob.best = post.prob.best + 1e-7
+        post.prob.best = post.prob.best / sum(post.prob.best)
+        #----Justify if type I error was made for each arm----
+        # post.prob.btcontrol>cutoffeff[group]: Efficacy boundary is hit at this stage
+        # post.prob.btcontrol<cutoffful[group]: Fultility boundary is hit at this stage
+        Justify = post.prob.btcontrol > cutoffeff[group] |
+          post.prob.btcontrol < cutoffful[group]
+        #Identify which active arm should be dropped at current stage
+        treatmentdrop = treatmentindex[post.prob.btcontrol > cutoffeff[group] |
+                                         post.prob.btcontrol < cutoffful[group]]
+        stats3 = rep(NA, K - 1)
+        names(stats3) = seq(1, K - 1)
+        stats3[treatmentindex] = Justify
+        if (sum(Justify) > 0) {
+          armleft = armleft - sum(Justify)
+          #Debugged for K arm by Ziyan Wang on 12:00 26/07/2022 for three arm. Used to be treatmentindex = treatmentindex[-treatmentdrop]
+          #Debugged for K arm by Ziyan Wang on 18:58 26/07/2022 for more than 3 arm. Used to be treatmentindex = treatmentindex[!(treatmentindex==treatmentdrop)]
+          treatmentindex = treatmentindex[is.na(match(treatmentindex, treatmentdrop))]
+        }
+      }
+      else if (model.inf$tlr.inf$variable.inf == "Mixeffect.jag") {
+        jagmodel<-"  model {
+            for(i in 1:armleft){
+              for(j in 1:stage){
+                Y[i,j] ~ dbin(p[i,j],N[i,j])
+                logit(p[i,j]) = beta0 + alpha[stage-(j-1)] + beta1[i]
+              }
+            }
+           alpha[1] = 0
+           alpha[2] ~ dnorm(0, tau2)
+           for(k in 3:stage ) {
+             alpha[k] ~ dnorm(2*alpha[k-1] - alpha[k-2],tau2)
+        }
+           beta1[1] <- 0
+           for(i in 2:armleft){
+             beta1[i] ~ dnorm(0,0.31)
+           }
+              tau2 ~ dgamma(0.1, 0.01)
+           beta0 ~ dnorm(0, 0.31)
+          }"
+        postsamp.list = Mixeffect_modelling(ytemp=ytemp, treatmentindex=treatmentindex, group=group, ntemp=ntemp, armleft=armleft, jagmodel=jagmodel)
+        analysis = Mixeffect_analysis(postsamp.list=postsamp.list, group=group, treatmentindex=treatmentindex, ns = ns)
+        stats1 = analysis$stats1
+        statsbeta0 = analysis$statsbeta0
+        stats4 = analysis$stats4
+        stats5 = analysis$stats5
+        stats6 = analysis$stats6
+        stats7 = analysis$stats7
+        sampoutcome = analysis$sampoutcome
+        sampefftotal = analysis$sampefftotal
+        post.prob.btcontrol = analysis$post.prob.btcontrol
         #-Calculating posterior probability of each arm (including control) to be the best arm-
         # post.prob.best: The posterior probability of each arm (including control) to be the best arm
         # This is required for Thall's randomisation approach

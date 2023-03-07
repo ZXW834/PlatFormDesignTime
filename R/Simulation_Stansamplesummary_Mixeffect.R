@@ -1,13 +1,13 @@
-#' The inner function of function resultstantoRfunc.rand()
-#'     in Simulation_Stansamplesummarytolist_Mixeffect.R
-#'
+#' @title resultrtostats.rand
+#' @description The inner function of function \code{\link{resultstantoRfunc.rand}}
+
 #' @param trteff Stan posterior samples of treatment effect sample distribution
 #' @param treatmentindex A vector of treatment index at the beginning of a trial
 #' @param armleft The number of treatment left in the platform (>2)
 #' @param K Total number of arms at the beginning
 #' @param group The current stage
 #' @param fit The stan output
-#' @param ns A vector of cohort size at each stage
+#' @param ns A vector of accumulated number of patient at each stage
 #'
 #' @return A list of stan result inference
 #'     stats1: A vector of posterior probability for all treatment arms
@@ -19,6 +19,7 @@
 #' @export
 #'
 #' @examples
+#' \dontrun{resultrtostats.rand(trteff = NA, treatmentindex = NA, armleft, K, group, fit, ns)}
 resultrtostats.rand = function(trteff = NA,
                                treatmentindex = NA,
                                armleft,

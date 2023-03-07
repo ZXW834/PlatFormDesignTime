@@ -2,17 +2,25 @@
 % Please edit documentation in R/Simulation_Parameterinitialisation.R
 \name{Initializetrialparameter}
 \alias{Initializetrialparameter}
-\title{This function initialises the inner parameter used in simulate.trial function}
+\title{Initializetrialparameter}
 \usage{
 Initializetrialparameter(response.probs, ns)
 }
 \arguments{
 \item{response.probs}{A vector of response probability of each arm}
 
-\item{ns}{A vector of number of patient at each stage}
+\item{ns}{A vector of accumulated number of patient at each stage}
 }
 \value{
-A list of initialised parameters
+A list of initialised parameters including the number of arms for this trial 'K',
+the number of arm active 'armleft', the index of treatment arm 'treatmentindex', the vector of total number of patients allocated to each arm 'n'
+the number of total number of patients survived for each arm 'y1',
+the matrix for true response probability of each arm at each stage 'groupwise.response.probs' which is required for the time trend study,
+the vector of randomisation probability for each arm 'randomprob',
+the array of arm assignment for each patient 'z',
+the array of outcome for each patient 'y',
+the array of the stage index for each patient 'group_indicator',
+the matrix of the probability of each arm to be the best at each stage 'post.prob.best.mat'.
 }
 \description{
 This function initialises the inner parameter used in simulate.trial function
@@ -36,7 +44,7 @@ Initializetrialparameter(response.probs = c(0.4,0.6), ns = c(15,30,45,60,75,90))
 #[1] 0 0
 
 #$groupwise.response.probs
-#    [,1] [,2]
+#     [,1] [,2]
 #[1,]  0.4  0.6
 #[2,]  0.4  0.6
 #[3,]  0.4  0.6
@@ -45,7 +53,7 @@ Initializetrialparameter(response.probs = c(0.4,0.6), ns = c(15,30,45,60,75,90))
 #[6,]  0.4  0.6
 
 #$randomprob
-#    1   2
+#     1   2
 #[1,] 0.5 0.5
 
 #$z
@@ -57,4 +65,12 @@ Initializetrialparameter(response.probs = c(0.4,0.6), ns = c(15,30,45,60,75,90))
 #$group_indicator
 #numeric(0)
 
+#$post.prob.best.mat
+#     0 1
+#[1,] 0 0
+#[2,] 0 0
+#[3,] 0 0
+#[4,] 0 0
+#[5,] 0 0
+#[6,] 0 0
 }
