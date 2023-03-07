@@ -20,7 +20,7 @@ You can install the development version of PlatFormDesignTimeTrend like so:
 
 ``` r
 # install.packages("PlatFormDesignTimeTrend")
-# install_github("ZXW834/PlatFormDesignTimeTrend")
+# install_github("ZXW834/PlatFormDesignTime)
 ```
 
 ## Example
