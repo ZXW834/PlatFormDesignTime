@@ -29,9 +29,13 @@ You can install the 'PlatFormDesignTimeTrend' package 1.0.0 like so:
 devtools::install_github("ZXW834/PlatFormDesignTime", build_vignettes = TRUE)
 ```
 
+## Demo
+- `Demo_CutoffScreening()` is a demo function performing cutoff screening process
+- `Demo_multiplescrenariotrialsimulation()` is a demo function performing MAMS trial simulation 
+
 ## Tutorials
-- 'MAMS-CutoffScreening-tutorial' is a tutorial document of how to do cutoff screening under Bayesian MAMS trial
-- 'MAMS-trial-simulation-tutorial' is a tutorial document of how to do Bayesian MAMS trial simulation with or without time trend 
+- `MAMS-CutoffScreening-tutorial` is a tutorial document of how to do cutoff screening under Bayesian MAMS trial
+- `MAMS-trial-simulation-tutorial` is a tutorial document of how to do Bayesian MAMS trial simulation with or without time trend 
 
 ## Example
 
