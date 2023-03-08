@@ -21,6 +21,10 @@
 #'
 #' @examples
 #' demo_Cutoffscreening(ntrials = 100, cl = 2)
+#' \dontshow{
+#' ## R CMD check: make sure any open connections are closed afterward
+#' if (!inherits(plan(), "sequential")) plan(sequential)
+#' }
 demo_Cutoffscreening = function(ntrials = 1000,
                                 trial.fun = simulatetrial,
                                 grid.inf = list(start = c(0.9, 0.95, 1), extendlength =
