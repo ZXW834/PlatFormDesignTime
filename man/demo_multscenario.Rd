@@ -22,4 +22,8 @@ The clinically meaningful increment on probability scale is 0.2. The stopping bo
 }
 \examples{
 demo_multscenario(ntrials = 10, cl = 2, save_data = FALSE)
+\dontshow{
+## R CMD check: make sure any open connections are closed afterward
+if (!inherits(plan(), "sequential")) plan(sequential)
+}
 }
