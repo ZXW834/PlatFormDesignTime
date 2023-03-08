@@ -40,4 +40,7 @@ This function does a cutoff screening for trial simulation.
 }
 \examples{
 demo_Cutoffscreening(ntrials = 100, cl = 2)
+\dontshow{
+## R CMD check: make sure any open connections are closed afterward
+doParallel::stopImplicitCluster()}
 }

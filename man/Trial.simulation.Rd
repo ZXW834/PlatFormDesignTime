@@ -41,4 +41,7 @@ The time cost of this function depend on the cpu cores of the user's cpmputer.
 \examples{
 set.seed(1)
 Trial.simulation(ntrials = 10, cl = 2)
+\dontshow{
+## R CMD check: make sure any open connections are closed afterward
+doParallel::stopImplicitCluster()}
 }
