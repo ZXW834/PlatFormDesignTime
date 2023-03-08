@@ -19,8 +19,7 @@
 #' Trial.simulation(ntrials = 10, cl = 2)
 #' \dontshow{
 #' ## R CMD check: make sure any open connections are closed afterward
-#' if (!inherits(plan(), "sequential")) plan(sequential)
-#' }
+#' doParallel::stopImplicitCluster()}
 Trial.simulation = function(ntrials = 5000,
                             trial.fun = simulatetrial,
                             input.info = list(
